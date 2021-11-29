@@ -3,9 +3,8 @@
 function apiCom() {
   fetch('http://localhost:3000/api/products')
     .then((response) => response.json())
-    .then((value) => {
-      addProduct(value);
-      console.log('value via API', value);
+    .then((data) => {
+      ShowProduct(data);
     })
     .catch((error) => {
       alert('Le serveur de répond pas, veuillez patienter.');
@@ -16,8 +15,8 @@ function apiCom() {
 
 // Fonction qui permet d'ajouter les elements attendu de chaque produit
 
-function addProduct(value) {
-  for (product of value) {
+function ShowProduct(data) {
+  for (product of data) {
     const article = `
       <a href="./product.html?_id=${product._id}">
       <article>
