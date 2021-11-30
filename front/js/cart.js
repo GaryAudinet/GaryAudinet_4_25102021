@@ -6,6 +6,12 @@ function getLocalStorageProducts() {
   );
 
 
+if (localStorageProducts == 0) {
+  document.querySelector("#cart__items").innerHTML =`
+    <p>Votre panier est vide. <br> Retourner sur la page d'accueil afin de sélectionner des produits !</p>`;
+}
+
+
 // Fonction permettant d'afficher les produits qui sont présent dans le panier.
 
   function showCart() {
@@ -54,6 +60,7 @@ function getLocalStorageProducts() {
               'localStorageProducts',
               JSON.stringify(localStorageProducts)
             );
+            alert('Votre article a été supprimé');
             location.reload();
           });
         }
@@ -222,6 +229,8 @@ function getLocalStorageProducts() {
             emailErrorMsg.style.color = 'red';
           }
         }
+
+        // Vérification des champs du formulaire
 
         if (
           ValidFirstName() &&
