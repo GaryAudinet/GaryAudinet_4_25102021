@@ -246,18 +246,62 @@ if (localStorageProducts == 0) {
         }
       }
 
+
+
       // Fonction pour passer la commande
 
-      function Order() {
+      function postOrder() {
           const order = document.getElementById('order');
           order.addEventListener('click', (event) => {
             event.preventDefault();
             if (validation()) {
-              
+              const products = [];
+              for (let index = 0; index < localStorageProducts.length; index++) {
+                products.push(localStorageProducts[index].id);
+              }
+              console.log(products);
+
+              const contactAndProducts = {
+                contact: {
+                  firstName: firstName.value,
+                  lastName: lastName.value,
+                  address: address.value,
+                  city: city.value,
+                  email: email.value,
+                },
+                products,
+              };
+              console.log(contactAndProducts);
+
+              let letFetch = 
+              fetch('http://localhost:3000/api/products/order', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contactAndProducts),
+                
+              })
+                .then((response) => response.json())
+                .then((id) => {
+                  console.log(products);
+
+                //  document.location.href = `confirmation.html?id=${id.orderId}`;
+                })
+                .catch((error) => {
+                  alert(
+                    'Le serveur de répond pas, veuillez patienter.'
+                  );
+                  console.log(error);
+                  
+                });
+                console.log(letFetch); 
             }
+            
           });
-      }
-      Order();
+        }
+      postOrder();
     }
 
   }
