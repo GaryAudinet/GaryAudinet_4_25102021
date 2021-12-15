@@ -1,34 +1,27 @@
-// API
+// API 
 
-function apiCom() {
-  fetch('http://localhost:3000/api/products')
-    .then((response) => response.json())
-    .then((data) => {
-      ShowProduct(data);
-    })
-    .catch((error) => {
-      alert('Le serveur de répond pas, veuillez patienter.');
-    });
-  }
-  apiCom();
-
+fetch('http://localhost:3000/api/products')
+  .then(res => res.json())
+  .then(data => { 
+    showProduct(data);
+  })
+  .catch(_error => {
+    alert('Le serveur de répond pas, veuillez patienter.');
+  });
 
 // Fonction qui permet d'ajouter les elements attendu de chaque produit
 
-function ShowProduct(data) {
-  for (product of data) {
-    const article = `
-      <a href="./product.html?_id=${product._id}">
-      <article>
-        <img src="${product.imageUrl}" alt="${product.altTxt}">
-        <h3 class="productName">${product.name}</h3>
-        <p class="productDescription">${product.description}</p>
-      </article>
-      </a>
-    `;
-    document
-    .getElementById('items')
-    .insertAdjacentHTML('beforeend', article);
-  }
+function showProduct(data) {
+    for (product of data) {
+        const itemCard = document.getElementById('items');
+        itemCard.innerHTML +=`
+        <a href="./product.html?id=${product._id}">
+        <article>
+          <img src="${product.imageUrl}" alt="${product.altTxt}">
+          <h3 class="productName">${product.name}</h3>
+          <p class="productDescription">${product.description}</p>
+        </article>
+        </a>
+      `;
+    }
 }
-  
