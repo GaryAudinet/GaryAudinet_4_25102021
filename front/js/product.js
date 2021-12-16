@@ -3,8 +3,10 @@
 const params = new URL(window.location.href).searchParams;
 const newID = params.get('id');
 
+
 // API - Recuperation de l'id d'un produit à afficher
 // Fonction permettant d'afficher les détails d'un produit 
+
 const image = document.getElementsByClassName('item__img');
 const title = document.getElementById('title');
 const price = document.getElementById('price');
@@ -35,9 +37,8 @@ fetch("http://localhost:3000/api/products/" + newID)
     alert('Le serveur de répond pas, veuillez patienter.');
   });
 
+
 // Permettre l'ajout des produits dans le panier
-
-
 
 function addToCart () {
   const addToCart = document.getElementById('addToCart');
