@@ -2,7 +2,7 @@
 
 let products = [];
 let localStorageProducts = JSON.parse(localStorage.getItem('product'));
-
+console.table(localStorageProducts)
 
 // Fonction permettant d'afficher les produits qui sont présent dans le panier, si le panier n'est pas vide
 

@@ -5,7 +5,7 @@ function confirmation() {
   const searchParams = new URLSearchParams(url.search);
   if (searchParams.has('id')) {
     const id = searchParams.get('id');
-    console.log('Numéro de commande:', id);
+    console.log(id);
     return id;
   }
 }

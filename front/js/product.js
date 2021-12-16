@@ -16,6 +16,7 @@ const colors = document.getElementById('colors');
 fetch("http://localhost:3000/api/products/" + newID)
   .then(res => res.json())
   .then(data => {
+    console.table(data);
     image[0].innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
     imageURL = data.imageUrl;
     imageAlt = data.altTxt;
@@ -63,9 +64,9 @@ function addToCart () {
   
     let update = false;
     if (localStorageProducts) {
-     localStorageProducts.forEach (function (productOk, key) {
-      if (productOk.id == newID && productOk.color == selectColors.value) {
-        localStorageProducts[key].quantity = parseInt(productOk.quantity) + parseInt(selectQuantity.value);
+     localStorageProducts.forEach (function (productHere, key) {
+      if (productHere.id == newID && productHere.color == selectColors.value) {
+        localStorageProducts[key].quantity = parseInt(productHere.quantity) + parseInt(selectQuantity.value);
         localStorage.setItem('product', JSON.stringify(localStorageProducts));
         update = true;
         alert(`Votre panier a été mis à jour`)
@@ -82,6 +83,7 @@ function addToCart () {
       localStorageProducts = [];
       addProductLocalStorage();
     }
+    console.table(localStorageProducts);
   });
 }
 addToCart();
