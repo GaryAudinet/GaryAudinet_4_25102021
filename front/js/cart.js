@@ -273,8 +273,7 @@ function postOrder() {
         .then((response) => response.json())
         .then((id) => {
           console.log(products);
-
-          document.location.href = `confirmation.html?id=${id.orderId}`;
+          window.location.href = `confirmation.html?id=${id.orderId}`;
         })
         .catch((error) => {
           alert(

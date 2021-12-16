@@ -12,4 +12,5 @@ function confirmation() {
 window.addEventListener('load', () => {
   const orderId = document.getElementById('orderId');
   orderId.innerText = confirmation();
+  localStorage.clear();
 });
