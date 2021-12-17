@@ -1,10 +1,10 @@
-// Communication indispensable pour l'acces avec le localStorage
+// Récupération des données(produits) présent dans le localStorage
 
 let products = [];
 let localStorageProducts = JSON.parse(localStorage.getItem('product'));
 console.table(localStorageProducts)
 
-// Fonction permettant d'afficher les produits qui sont présent dans le panier, si le panier n'est pas vide
+// Fonction permettant d'afficher les produits qui sont présent dans le panier (si le panier n'est pas vide)
 
 if(localStorageProducts === null || localStorageProducts == 0) {
   document.querySelector("#cart__items").innerHTML =`
@@ -49,7 +49,7 @@ else{
   }
 
 
-  // Fonction pour la supression d'un article
+  // Fonction pour la supression d'un article du panier
 
 function deleteArticle() {
   const deleteItem = document.querySelectorAll('.deleteItem');
@@ -67,7 +67,7 @@ function deleteArticle() {
 deleteArticle();
 
 
-  // Fonction pour le changement de la quantité
+  // Fonction pour le changement de la quantité d'un produit présent dans le panier
 
 function changeQuantity() {
   let itemQuantity = document.querySelectorAll('.itemQuantity');
@@ -94,7 +94,7 @@ function changeQuantity() {
 changeQuantity();
 
 
-  // Fonction pour le calcul du prix du panier
+  // Fonction pour le calcul du prix total du panier
 
 function priceCalcul() {
   const priceCalcul = [];
@@ -126,7 +126,7 @@ totalArticle();
 }
 
 
-// Contenant pour le formulaire
+// Contenant nécessaire pour le formulaire
 
 class Form {
   constructor() {
@@ -235,7 +235,7 @@ function validation() {
 }
 
 
-// Fonction pour passer la commande
+// Fonction pour passer la commande, qui récupere ainsi les données du formulaire et des articles du panier
 
 function postOrder() {
   const order = document.getElementById('order');

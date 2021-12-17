@@ -1,4 +1,4 @@
-// Lien entre un produit des pages accueil/produit
+// Redirection d'url de l'API avec de faire un lien entre un produit des pages accueil/produit
 
 const params = new URL(window.location.href).searchParams;
 const newID = params.get('id');
@@ -39,7 +39,7 @@ fetch("http://localhost:3000/api/products/" + newID)
   });
 
 
-// Permettre l'ajout des produits dans le panier
+// Fonction permettant l'ajout des produits dans le panier
 
 function addToCart () {
   const addToCart = document.getElementById('addToCart');

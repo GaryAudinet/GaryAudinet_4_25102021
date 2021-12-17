@@ -1,4 +1,4 @@
-// Fonction pour afficher le numéro de commande
+// Fonction pour afficher le numéro de la commande
 
 function confirmation() {
   const url = new URL(window.location.href);

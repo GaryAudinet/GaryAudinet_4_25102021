@@ -1,4 +1,4 @@
-// API 
+// Recupération des données de l'API 
 
 fetch('http://localhost:3000/api/products')
   .then(res => res.json())
@@ -10,7 +10,8 @@ fetch('http://localhost:3000/api/products')
     alert('Le serveur de répond pas, veuillez patienter.');
   });
 
-// Fonction qui permet d'ajouter les elements attendu de chaque produit
+
+// Fonction qui permet d'ajouter les elements attendu de chaque produit afin des les afficher dynamiquement
 
 function showProduct(data) {
     for (product of data) {
