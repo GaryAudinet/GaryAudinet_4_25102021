@@ -3,6 +3,8 @@
 const params = new URL(window.location.href).searchParams;
 const newID = params.get('id');
 
+const selectQuantity = document.getElementById('quantity');
+const selectColors = document.getElementById('colors');
 
 // API - Recuperation de l'id d'un produit à afficher
 // Fonction permettant d'afficher les détails d'un produit 
@@ -44,46 +46,52 @@ fetch("http://localhost:3000/api/products/" + newID)
 function addToCart () {
   const addToCart = document.getElementById('addToCart');
   addToCart.addEventListener('click', (event) => {
-    event.preventDefault();
-    const selectQuantity = document.getElementById('quantity');
-    const selectColors = document.getElementById('colors');
-    const selection = {
-      id: newID,
-      image: imageURL,
-      alt: imageAlt,
-      name: title.textContent,
-      price: price.textContent,
-      color: selectColors.value,
-      quantity: selectQuantity.value,
-    };
-    let localStorageProducts =  JSON.parse(localStorage.getItem('product'));
-    const addProductLocalStorage = () => {
-    localStorageProducts.push(selection);
-    localStorage.setItem('product', JSON.stringify(localStorageProducts));
-    }
-  
-    let update = false;
-    if (localStorageProducts) {
-     localStorageProducts.forEach (function (productHere, key) {
-      if (productHere.id == newID && productHere.color == selectColors.value) {
-        localStorageProducts[key].quantity = parseInt(productHere.quantity) + parseInt(selectQuantity.value);
-        localStorage.setItem('product', JSON.stringify(localStorageProducts));
-        update = true;
-        alert(`Votre panier a été mis à jour`)
+    if (selectQuantity.value > 0 && selectQuantity.value <=100 && selectQuantity.value != 0) {
+        event.preventDefault();
+ 
+      
+      const selection = {
+        id: newID,
+        image: imageURL,
+        alt: imageAlt,
+        name: title.textContent,
+        price: price.textContent,
+        color: selectColors.value,
+        quantity: selectQuantity.value,
+      };
+
+      let localStorageProducts =  JSON.parse(localStorage.getItem('product'));
+      const addProductLocalStorage = () => {
+      localStorageProducts.push(selection);
+      localStorage.setItem('product', JSON.stringify(localStorageProducts));
       }
-    });
-  
-      if (!update) {
-      addProductLocalStorage();
-      alert('Votre article a été ajouté au panier');
+    
+      let update = false;
+
+      if (localStorageProducts) {
+        localStorageProducts.forEach (function (productHere, key) {
+        if (productHere.id == newID && productHere.color == selectColors.value) {
+          localStorageProducts[key].quantity = parseInt(productHere.quantity) + parseInt(selectQuantity.value);
+          localStorage.setItem('product', JSON.stringify(localStorageProducts));
+          update = true;
+          alert(`Votre panier a été mis à jour`)
+        }
+      });
+    
+        if (!update) {
+        addProductLocalStorage();
+        alert('Votre article a été ajouté au panier');
+        }
       }
+    
+      else {
+        localStorageProducts = [];
+        addProductLocalStorage();
+      }
+      console.table(localStorageProducts);
     }
   
-    else {
-      localStorageProducts = [];
-      addProductLocalStorage();
-    }
-    console.table(localStorageProducts);
+ 
   });
 }
 addToCart();
