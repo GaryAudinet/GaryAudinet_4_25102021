@@ -3,45 +3,63 @@
 const params = new URL(window.location.href).searchParams;
 const newID = params.get('id');
 
-const selectQuantity = document.getElementById('quantity');
-const selectColors = document.getElementById('colors');
 
 // API - Recuperation de l'id d'un produit à afficher
-// Fonction permettant d'afficher les détails d'un produit 
 
-const image = document.getElementsByClassName('item__img');
-const title = document.getElementById('title');
-const price = document.getElementById('price');
-const description = document.getElementById('description');
-const colors = document.getElementById('colors');
+let article = "";
+getArticle();
 
-fetch("http://localhost:3000/api/products/" + newID)
-  .then(res => res.json())
-  .then(data => {
-    console.table(data);
-    image[0].innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
-    imageURL = data.imageUrl;
-    imageAlt = data.altTxt;
-    title.innerHTML = `<h1>${data.name}</h1>`;
-    price.innerText = `${data.price}`;
-    description.innerText = `${data.description}`;
+function getArticle() {
+  fetch("http://localhost:3000/api/products/" + newID)
+    .then((res) => {
+      return res.json();
+    })
 
-    function colorsOptions() {
-      for (index in data.colors) {
-        colors.options[colors.options.length] = new Option(
-          data.colors[index],
-          data.colors[index]
-        );
+    .then(async function (API) {
+      article = await API;
+      console.table(article);
+      if (article) {
+        getPost(article);
       }
-    }
-    colorsOptions();
-  })
-  .catch(_error => {
-    alert('Le serveur de répond pas, veuillez patienter.');
-  });
+    })
+    .catch((error) => {
+      alert('Le serveur de répond pas, veuillez patienter.');
+    });
+}
+  
+
+// Fonction permettant d'afficher les détails d'un produit 
+function getPost(article) {
+  
+  let productImg = document.createElement("img");
+  document.querySelector(".item__img").appendChild(productImg);
+  productImg.src = article.imageUrl;
+  productImg.alt = article.altTxt;
+
+  let productName = document.getElementById("title");
+  productName.innerHTML = article.name;
+
+  document.title = article.name;
+
+  let productPrice = document.getElementById("price");
+  productPrice.innerHTML = article.price;
+
+  let productDescription = document.getElementById("description");
+  productDescription.innerHTML = article.description;
+
+  for (let colors of article.colors) {
+    let productColors = document.createElement("option");
+    document.querySelector("#colors").appendChild(productColors);
+    productColors.value = colors;
+    productColors.innerHTML = colors;
+  }
+}
 
 
 // Fonction permettant l'ajout des produits dans le panier
+
+const selectQuantity = document.getElementById('quantity');
+const selectColors = document.getElementById('colors');
 
 function addToCart () {
   const addToCart = document.getElementById('addToCart');
@@ -49,13 +67,12 @@ function addToCart () {
     if (selectQuantity.value > 0 && selectQuantity.value <=100 && selectQuantity.value != 0) {
         event.preventDefault();
  
-      
       const selection = {
         id: newID,
-        image: imageURL,
-        alt: imageAlt,
-        name: title.textContent,
-        price: price.textContent,
+        name: article.name,
+        price: article.price,
+        image: article.imageUrl,
+        alt: article.altTxt,
         color: selectColors.value,
         quantity: selectQuantity.value,
       };

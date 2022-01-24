@@ -1,52 +1,95 @@
 // Récupération des données(produits) présent dans le localStorage
 
-let products = [];
+/*let products = [];*/
 let localStorageProducts = JSON.parse(localStorage.getItem('product'));
 console.table(localStorageProducts)
 
 // Fonction permettant d'afficher les produits qui sont présent dans le panier (si le panier n'est pas vide)
 
-if(localStorageProducts === null || localStorageProducts == 0) {
-  document.querySelector("#cart__items").innerHTML =`
-  <p>Votre panier est vide. <br> Retourner sur la page d'accueil afin de sélectionner des produits !</p>`;
+if (localStorageProducts === null || localStorageProducts == 0) {
+  console.log("Panier vide !")
+  let panierVide = document.createElement("p");
+  document.querySelector("#cart__items").appendChild(panierVide );
+  panierVide.innerHTML = "Votre panier est vide. <br> Retourner sur la page d'accueil afin de sélectionner des produits !";
 }
 
 else{
-  let itemCards = [];
 
-  for (i = 0; i < localStorageProducts.length; i++) {
-  products.push(localStorageProducts[i].id);
-  const productTotalPrice =
-          localStorageProducts[i].price *
-          localStorageProducts[i].quantity;
-  itemCards = itemCards + `
-    <article class="cart__item" data-id="${localStorageProducts[i].id}" data-color="${localStorageProducts.color}">
-    <div class="cart__item__img">
-      <img src="${localStorageProducts[i].image}" alt="${localStorageProducts[i].alt}">
-    </div>
-    <div class="cart__item__content">
-      <div class="cart__item__content__titlePrice">
-        <h2>${localStorageProducts[i].name}</h2>
-        <p>${localStorageProducts[i].color}</p>
-        <p>${productTotalPrice} €</p>
-      </div>
-      <div class="cart__item__content__settings">
-        <div class="cart__item__content__settings__quantity">
-          <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${localStorageProducts[i].quantity}">
-        </div>
-        <div class="cart__item__content__settings__delete">
-          <p class="deleteItem">Supprimer</p>
-        </div>
-      </div>
-    </div>
-  </article>`;
-  }
+  for (let product in localStorageProducts) {
 
-  if (i === localStorageProducts.length) {
-  const itemCart = document.getElementById('cart__items');
-  itemCart.innerHTML += itemCards;
+    let productArticle = document.createElement("article");
+    document.querySelector("#cart__items").appendChild(productArticle);
+    productArticle.className = "cart__item";
+    productArticle.setAttribute(
+      "data-id",
+      localStorageProducts[product].id
+    );
+
+    let productDivImg = document.createElement("div");
+    productArticle.appendChild(productDivImg);
+    productDivImg.className = "cart__item__img";
+
+    let productImg = document.createElement("img");
+    productDivImg.appendChild(productImg);
+    productImg.src = localStorageProducts[product].image;
+    productImg.alt = localStorageProducts[product].alt;
+
+    let productItemContent = document.createElement("div");
+    productArticle.appendChild(productItemContent);
+    productItemContent.className = "cart__item__content";
+
+    let productItemContentTitlePrice = document.createElement("div");
+    productItemContent.appendChild(productItemContentTitlePrice);
+    productItemContentTitlePrice.className =
+      "cart__item__content__titlePrice";
+
+    let productTitle = document.createElement("h2");
+    productItemContentTitlePrice.appendChild(productTitle);
+    productTitle.innerHTML = localStorageProducts[product].name;
+
+    let productColor = document.createElement("p");
+    productItemContentTitlePrice.appendChild(productColor);
+    productColor.innerHTML = localStorageProducts[product].color;
+
+    let productPrice = document.createElement("p");
+    productItemContentTitlePrice.appendChild(productPrice);
+    productPrice.innerHTML = localStorageProducts[product].price + " €";
+
+    let productItemContentSettings = document.createElement("div");
+    productItemContent.appendChild(productItemContentSettings);
+    productItemContentSettings.className = "cart__item__content__settings";
+
+    let productItemContentSettingsQuantity = document.createElement("div");
+    productItemContentSettings.appendChild(
+      productItemContentSettingsQuantity
+    );
+    productItemContentSettingsQuantity.className =
+      "cart__item__content__settings__quantity";
+
+    let productQte = document.createElement("p");
+    productItemContentSettingsQuantity.appendChild(productQte);
+    productQte.innerHTML = "Qté  : ";
+
+    let productQuantity = document.createElement("input");
+    productItemContentSettingsQuantity.appendChild(productQuantity);
+    productQuantity.value = localStorageProducts[product].quantity;
+    productQuantity.className = "itemQuantity";
+    productQuantity.setAttribute("type", "number");
+    productQuantity.setAttribute("name", "itemQuantity");
+    productQuantity.setAttribute("min", "1");
+    productQuantity.setAttribute("max", "100");
+
+    let productItemContentSettingsDelete = document.createElement("div");
+    productItemContentSettings.appendChild(productItemContentSettingsDelete);
+    productItemContentSettingsDelete.className =
+      "cart__item__content__settings__delete";
+
+    let productSupprimer = document.createElement("p");
+    productItemContentSettingsDelete.appendChild(productSupprimer);
+    productSupprimer.className = "deleteItem";
+    productSupprimer.innerHTML = "Supprimer";
   }
+}
 
 
   // Fonction pour la supression d'un article du panier
@@ -97,6 +140,7 @@ changeQuantity();
   // Fonction pour le calcul du prix total du panier
 
 function priceCalcul() {
+  total = 0;
   const priceCalcul = [];
   for (let p = 0; p < localStorageProducts.length; p++) {
     const cartAmount = localStorageProducts[p].price * localStorageProducts[p].quantity;
@@ -107,6 +151,7 @@ function priceCalcul() {
   const totalPrice = document.getElementById('totalPrice');
   totalPrice.textContent = total;
 }
+
 priceCalcul();
 
 
@@ -122,8 +167,6 @@ function totalArticle() {
   totalQuantity.textContent = totalItems;
 }
 totalArticle();
-
-}
 
 
 // Contenant nécessaire pour le formulaire
