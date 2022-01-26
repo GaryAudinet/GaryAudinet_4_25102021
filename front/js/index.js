@@ -44,11 +44,11 @@ function insertProduct(article) {
   let productName = document.createElement("h3");
   productArticle.appendChild(productName);
   productName.classList.add("productName");
-  productName.innerHTML = article.name;
+  productName.textContent = article.name;
 
   let productDescription = document.createElement("p");
   productArticle.appendChild(productDescription);
   productDescription.classList.add("productName");
-  productDescription.innerHTML = article.description;
+  productDescription.textContent = article.description;
 }
 

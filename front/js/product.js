@@ -37,21 +37,21 @@ function getPost(article) {
   productImg.alt = article.altTxt;
 
   let productName = document.getElementById("title");
-  productName.innerHTML = article.name;
+  productName.textContent = article.name;
 
   document.title = article.name;
 
   let productPrice = document.getElementById("price");
-  productPrice.innerHTML = article.price;
+  productPrice.textContent = article.price;
 
   let productDescription = document.getElementById("description");
-  productDescription.innerHTML = article.description;
+  productDescription.textContent = article.description;
 
   for (let colors of article.colors) {
     let productColors = document.createElement("option");
     document.querySelector("#colors").appendChild(productColors);
     productColors.value = colors;
-    productColors.innerHTML = colors;
+    productColors.textContent = colors;
   }
 }
 

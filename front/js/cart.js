@@ -10,7 +10,7 @@ if (localStorageProducts === null || localStorageProducts == 0) {
   console.log("Panier vide !")
   let panierVide = document.createElement("p");
   document.querySelector("#cart__items").appendChild(panierVide );
-  panierVide.innerHTML = "Votre panier est vide. <br> Retourner sur la page d'accueil afin de sélectionner des produits !";
+  panierVide.textContent = "Votre panier est vide ! Retourner sur la page d'accueil afin de sélectionner des produits.";
 }
 
 else{
@@ -45,15 +45,15 @@ else{
 
     let productTitle = document.createElement("h2");
     productItemContentTitlePrice.appendChild(productTitle);
-    productTitle.innerHTML = localStorageProducts[product].name;
+    productTitle.textContent = localStorageProducts[product].name;
 
     let productColor = document.createElement("p");
     productItemContentTitlePrice.appendChild(productColor);
-    productColor.innerHTML = localStorageProducts[product].color;
+    productColor.textContent = localStorageProducts[product].color;
 
     let productPrice = document.createElement("p");
     productItemContentTitlePrice.appendChild(productPrice);
-    productPrice.innerHTML = localStorageProducts[product].price + " €";
+    productPrice.textContent = localStorageProducts[product].price + " €";
 
     let productItemContentSettings = document.createElement("div");
     productItemContent.appendChild(productItemContentSettings);
@@ -68,7 +68,7 @@ else{
 
     let productQte = document.createElement("p");
     productItemContentSettingsQuantity.appendChild(productQte);
-    productQte.innerHTML = "Qté  : ";
+    productQte.textContent = "Quantité  : ";
 
     let productQuantity = document.createElement("input");
     productItemContentSettingsQuantity.appendChild(productQuantity);
@@ -87,7 +87,7 @@ else{
     let productSupprimer = document.createElement("p");
     productItemContentSettingsDelete.appendChild(productSupprimer);
     productSupprimer.className = "deleteItem";
-    productSupprimer.innerHTML = "Supprimer";
+    productSupprimer.textContent = "Supprimer";
   }
 }
 
