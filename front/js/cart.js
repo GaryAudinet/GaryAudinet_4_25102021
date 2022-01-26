@@ -1,6 +1,5 @@
 // Récupération des données(produits) présent dans le localStorage
 
-/*let products = [];*/
 let localStorageProducts = JSON.parse(localStorage.getItem('product'));
 console.table(localStorageProducts)
 
