@@ -1,4 +1,4 @@
-# GaryAudinet_5_25102021 - Projet: Construisez un site e-commerce en JavaScript
+# Projet: Construisez un site e-commerce en JavaScript
 
 ## Cahier des charges
 
